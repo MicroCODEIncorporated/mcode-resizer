@@ -1,14 +1,16 @@
 # mcode-resizer
-A pair of C# .NET classes that enable any Windows Form to automatically resize to any DPI at any Scale.
+A pair of C# .NET classes that enable any Windows Form to automatically resize to any DPI at any Scale on any display.
 
 
 ## Description
 
-After adding these two .NET C# classes to any Windows Forms project any Form can be updated to auto-size
-by editing just two (2) lines of code.
+After adding these two .NET C# classes to any Windows Forms project any Form can be updated to auto-size<br>
+by editing just three (3) lines of code.
 
-The auto-sizing of these classes does not rely on any Windows features, no DPI scaling mode, no anchoring
-of controls, etc.
+The auto-sizing of these classes does not rely on any Windows features, no DPI scaling mode, no anchoring<br>
+of controls, etc. It relies on Windows display properties and math alone to retain the best possible appearance<br>
+of all controls in a Windows Form for all possible resolutions, scales, and shapes. It also supports dynamic scaling<br>
+changes and dragging between display of different capabilities.
 
 
 ## Using the MicroCODE.Resizer
@@ -16,21 +18,41 @@ of controls, etc.
 
 ### Dependencies
 
-* These two C# Classes must be added to your project
-* ...{TO-DO}
+* Reference these two C# Classes ('Resizer.cs' and 'ResizerForm.cs') in your project
 
+* Set The Properties on your Form to "AutoScaleMode = None" -- 'Resizer' will take care of it all
+
+        //
+        // AppScreen
+        //
+        this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+
+
+* Change your Forms to inherit "ResizerForm" (which itself inherits "Form") instead of "Form" directly
+
+        // Inherit from 'ReserForm' for display independence
+        public partial class AppScreen : ResizerForm, IAppScreen, IAppEvents
+        {
+
+* Call "UseResizer()" after "IntializeComponents()" -- this method is included in "Reszier.cs"
+
+
+        // Use MicroCODE's auto-scaling / auto-resizing capability...
+        UseResizer(parentForm: this);
 
 
 ### Installing
 
-* Clone this repo and copy these files into your Visual Studio project:
+Clone this repo and copy these files into your Visual Studio project:
 - ResizerForm.cs
 - Resizer.cs
 
 <p align="left"><img src=".\images\resizer-files.png" width="512" title="MicroCODE Resizer Files..."></p>
 
 * Change your Forms to inherit 'ResizerForm' instead of 'System.Windows.Form'
-
+* Call 'UseResizer()' immediately after 'InitializeComponents()'
+<br>
+<br>
 
 ### Demonstration of the MicroCODE Resizer...
 
@@ -38,15 +60,16 @@ of controls, etc.
 Your browser does not support the HTML5 player.
 </video>
 </p>
-
+<br>
+<br>
 
 ## Help
 
-This is delivered AS-IS under the MIT License, but we will make every effort to
-address any issues you may find to improve the Resizer. If you have improvements
-or suggests to contribute clone this repository and give us a pull request with
-your documentation.
-
+This is delivered AS-IS under the MIT License, but we will make every effort to<br>
+address any issues you may find to improve the Resizer. If you have improvements<br>
+or suggests to contribute clone this repository and give us a pull request with<br>
+your documentation.<br>
+<br>
 
 
 ## Terminology
@@ -59,6 +82,17 @@ your documentation.
 |  High DPI         | A monitor supports more than 96 dpi.
 |  DPI Aware        | An application that can scale itself regardless of DPI.
 |                   | The MicroCODE.Resizer adds 'DPI Awareness' to your App.
+|  -
+|  PXPI             | Pixels per Inch
+|  PTPI             | Points per Inch
+|  PXPP             | Pixels per Point
+|  IPPT             | Inches per Point
+|  IPPX             | Inches per Pixel
+|  PTPP             | Points per Pixel
+|  -
+|  STANDARD         | Measurements, ratios, and sizes associated with a 96 dpi monitor.
+|  NATIVE           | Measurements, ratios, and sizes associated with physical monitor.
+|  DISPLAY          | Measurements, ratios, and sizes associated with the 'Scaled' display on the physical monitor.
 
 
 ## Authors
